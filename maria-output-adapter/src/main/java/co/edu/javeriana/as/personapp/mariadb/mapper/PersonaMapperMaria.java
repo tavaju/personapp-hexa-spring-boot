@@ -69,6 +69,19 @@ public class PersonaMapperMaria {
 		return person;
 	}
 
+	public Person fromAdapterToDomainBasic(PersonaEntity personaEntity) {
+		if (personaEntity == null) return null;
+
+		Person person = new Person();
+		person.setIdentification(personaEntity.getCc());
+		person.setFirstName(personaEntity.getNombre());
+		person.setLastName(personaEntity.getApellido());
+		person.setGender(validateGender(personaEntity.getGenero()));
+		person.setAge(validateAge(personaEntity.getEdad()));
+		// Sin estudios ni teléfonos para evitar ciclos
+		return person;
+	}
+
 	private @NonNull Gender validateGender(Character genero) {
 		return genero == 'F' ? Gender.FEMALE : genero == 'M' ? Gender.MALE : Gender.OTHER;
 	}
