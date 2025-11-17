@@ -16,6 +16,10 @@ public class PhoneMenu {
 
 	private static final int OPCION_REGRESAR_MOTOR_PERSISTENCIA = 0;
 	private static final int OPCION_VER_TODO = 1;
+	private static final int OPCION_CREAR = 2;
+	private static final int OPCION_EDITAR = 3;
+	private static final int OPCION_ELIMINAR = 4;
+	private static final int OPCION_BUSCAR_POR_NUMERO = 5;
 
 	public void iniciarMenu(PhoneInputAdapterCli phoneInputAdapterCli, Scanner keyboard) {
 		boolean isValid = false;
@@ -57,11 +61,24 @@ public class PhoneMenu {
 				case OPCION_VER_TODO:
 					phoneInputAdapterCli.historial();
 					break;
+				case OPCION_CREAR:
+					phoneInputAdapterCli.crear(keyboard);
+					break;
+				case OPCION_EDITAR:
+					phoneInputAdapterCli.editar(keyboard);
+					break;
+				case OPCION_ELIMINAR:
+					phoneInputAdapterCli.eliminar(keyboard);
+					break;
+				case OPCION_BUSCAR_POR_NUMERO:
+					phoneInputAdapterCli.buscarPorNumero(keyboard);
+					break;
 				default:
 					log.warn("La opción elegida no es válida.");
 				}
 			} catch (InputMismatchException e) {
 				log.warn("Solo se permiten números.");
+				keyboard.nextLine();
 			}
 		} while (!isValid);
 	}
@@ -69,6 +86,10 @@ public class PhoneMenu {
 	private void mostrarMenuOpciones() {
 		System.out.println("----------------------");
 		System.out.println(OPCION_VER_TODO + " para ver todos los teléfonos");
+		System.out.println(OPCION_CREAR + " para crear un teléfono");
+		System.out.println(OPCION_EDITAR + " para editar un teléfono");
+		System.out.println(OPCION_ELIMINAR + " para eliminar un teléfono");
+		System.out.println(OPCION_BUSCAR_POR_NUMERO + " para buscar un teléfono por número");
 		System.out.println(OPCION_REGRESAR_MOTOR_PERSISTENCIA + " para regresar");
 	}
 

@@ -16,6 +16,12 @@ public class StudyMenu {
 
 	private static final int OPCION_REGRESAR_MOTOR_PERSISTENCIA = 0;
 	private static final int OPCION_VER_TODO = 1;
+	private static final int OPCION_CREAR = 2;
+	private static final int OPCION_EDITAR = 3;
+	private static final int OPCION_ELIMINAR = 4;
+	private static final int OPCION_BUSCAR_POR_ID = 5;
+	private static final int OPCION_BUSCAR_POR_PERSONA = 6;
+	private static final int OPCION_BUSCAR_POR_PROFESION = 7;
 
 	public void iniciarMenu(StudyInputAdapterCli studyInputAdapterCli, Scanner keyboard) {
 		boolean isValid = false;
@@ -57,11 +63,30 @@ public class StudyMenu {
 				case OPCION_VER_TODO:
 					studyInputAdapterCli.historial();
 					break;
+				case OPCION_CREAR:
+					studyInputAdapterCli.crear(keyboard);
+					break;
+				case OPCION_EDITAR:
+					studyInputAdapterCli.editar(keyboard);
+					break;
+				case OPCION_ELIMINAR:
+					studyInputAdapterCli.eliminar(keyboard);
+					break;
+				case OPCION_BUSCAR_POR_ID:
+					studyInputAdapterCli.buscarPorId(keyboard);
+					break;
+				case OPCION_BUSCAR_POR_PERSONA:
+					studyInputAdapterCli.buscarPorPersona(keyboard);
+					break;
+				case OPCION_BUSCAR_POR_PROFESION:
+					studyInputAdapterCli.buscarPorProfesion(keyboard);
+					break;
 				default:
 					log.warn("La opción elegida no es válida.");
 				}
 			} catch (InputMismatchException e) {
 				log.warn("Solo se permiten números.");
+				keyboard.nextLine();
 			}
 		} while (!isValid);
 	}
@@ -69,6 +94,12 @@ public class StudyMenu {
 	private void mostrarMenuOpciones() {
 		System.out.println("----------------------");
 		System.out.println(OPCION_VER_TODO + " para ver todos los estudios");
+		System.out.println(OPCION_CREAR + " para crear un estudio");
+		System.out.println(OPCION_EDITAR + " para editar un estudio");
+		System.out.println(OPCION_ELIMINAR + " para eliminar un estudio");
+		System.out.println(OPCION_BUSCAR_POR_ID + " para buscar un estudio por ID (persona y profesión)");
+		System.out.println(OPCION_BUSCAR_POR_PERSONA + " para buscar estudios por persona");
+		System.out.println(OPCION_BUSCAR_POR_PROFESION + " para buscar estudios por profesión");
 		System.out.println(OPCION_REGRESAR_MOTOR_PERSISTENCIA + " para regresar");
 	}
 

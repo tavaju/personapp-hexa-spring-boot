@@ -16,6 +16,10 @@ public class ProfessionMenu {
 
 	private static final int OPCION_REGRESAR_MOTOR_PERSISTENCIA = 0;
 	private static final int OPCION_VER_TODO = 1;
+	private static final int OPCION_CREAR = 2;
+	private static final int OPCION_EDITAR = 3;
+	private static final int OPCION_ELIMINAR = 4;
+	private static final int OPCION_BUSCAR_POR_ID = 5;
 
 	public void iniciarMenu(ProfessionInputAdapterCli professionInputAdapterCli, Scanner keyboard) {
 		boolean isValid = false;
@@ -57,11 +61,24 @@ public class ProfessionMenu {
 				case OPCION_VER_TODO:
 					professionInputAdapterCli.historial();
 					break;
+				case OPCION_CREAR:
+					professionInputAdapterCli.crear(keyboard);
+					break;
+				case OPCION_EDITAR:
+					professionInputAdapterCli.editar(keyboard);
+					break;
+				case OPCION_ELIMINAR:
+					professionInputAdapterCli.eliminar(keyboard);
+					break;
+				case OPCION_BUSCAR_POR_ID:
+					professionInputAdapterCli.buscarPorId(keyboard);
+					break;
 				default:
 					log.warn("La opción elegida no es válida.");
 				}
 			} catch (InputMismatchException e) {
 				log.warn("Solo se permiten números.");
+				keyboard.nextLine();
 			}
 		} while (!isValid);
 	}
@@ -69,6 +86,10 @@ public class ProfessionMenu {
 	private void mostrarMenuOpciones() {
 		System.out.println("----------------------");
 		System.out.println(OPCION_VER_TODO + " para ver todas las profesiones");
+		System.out.println(OPCION_CREAR + " para crear una profesión");
+		System.out.println(OPCION_EDITAR + " para editar una profesión");
+		System.out.println(OPCION_ELIMINAR + " para eliminar una profesión");
+		System.out.println(OPCION_BUSCAR_POR_ID + " para buscar una profesión por ID");
 		System.out.println(OPCION_REGRESAR_MOTOR_PERSISTENCIA + " para regresar");
 	}
 

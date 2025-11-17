@@ -1,6 +1,7 @@
 package co.edu.javeriana.as.personapp.terminal.mapper;
 
 import co.edu.javeriana.as.personapp.common.annotations.Mapper;
+import co.edu.javeriana.as.personapp.domain.Person;
 import co.edu.javeriana.as.personapp.domain.Phone;
 import co.edu.javeriana.as.personapp.terminal.model.PhoneModelCli;
 
@@ -16,6 +17,10 @@ public class PhoneMapperCli {
 			phoneModelCli.setDuenioNombre(phone.getOwner().getFirstName() + " " + phone.getOwner().getLastName());
 		}
 		return phoneModelCli;
+	}
+
+	public Phone fromAdapterCliToDomain(PhoneModelCli phoneModelCli, Person owner) {
+		return new Phone(phoneModelCli.getNumero(), phoneModelCli.getOperador(), owner);
 	}
 }
 
