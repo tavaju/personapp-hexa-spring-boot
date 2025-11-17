@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import co.edu.javeriana.as.personapp.terminal.adapter.PersonaInputAdapterCli;
+import co.edu.javeriana.as.personapp.terminal.adapter.PhoneInputAdapterCli;
+import co.edu.javeriana.as.personapp.terminal.adapter.ProfessionInputAdapterCli;
+import co.edu.javeriana.as.personapp.terminal.adapter.StudyInputAdapterCli;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -17,6 +20,15 @@ public class MenuPrincipal {
 	@Autowired
 	private PersonaInputAdapterCli personaInputAdapterCli;
 
+	@Autowired
+	private PhoneInputAdapterCli phoneInputAdapterCli;
+
+	@Autowired
+	private StudyInputAdapterCli studyInputAdapterCli;
+
+	@Autowired
+	private ProfessionInputAdapterCli professionInputAdapterCli;
+
 	private static final int SALIR = 0;
 	private static final int MODULO_PERSONA = 1;
 	private static final int MODULO_PROFESION = 2;
@@ -25,10 +37,16 @@ public class MenuPrincipal {
 
 	//Menus
 	private final PersonaMenu personaMenu;
+	private final PhoneMenu phoneMenu;
+	private final StudyMenu studyMenu;
+	private final ProfessionMenu professionMenu;
 	private final Scanner keyboard;
 
     public MenuPrincipal() {
         this.personaMenu = new PersonaMenu();
+        this.phoneMenu = new PhoneMenu();
+        this.studyMenu = new StudyMenu();
+        this.professionMenu = new ProfessionMenu();
         this.keyboard = new Scanner(System.in);
     }
 
@@ -48,13 +66,16 @@ public class MenuPrincipal {
 				log.info("volvio");
 				break;
 			case MODULO_PROFESION:
-				log.warn("Implementar Menu");
+				professionMenu.iniciarMenu(professionInputAdapterCli, keyboard);
+				log.info("volvio");
 				break;
 			case MODULO_TELEFONO:
-				log.warn("Implementar Menu");
+				phoneMenu.iniciarMenu(phoneInputAdapterCli, keyboard);
+				log.info("volvio");
 				break;
 			case MODULO_ESTUDIO:
-				log.warn("Implementar Menu");
+				studyMenu.iniciarMenu(studyInputAdapterCli, keyboard);
+				log.info("volvio");
 				break;
 			default:
 				log.warn("La opción elegida no es válida.");
