@@ -144,7 +144,36 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
     echo ""
     
     # Analizar salida para determinar qué tests pasaron
-    # Test 1: Crear Profesión
+    # Tests de Persona
+    increment_test
+    if echo "$OUTPUT" | grep -qi "Persona creada exitosamente\|999999999.*Juan"; then
+        test_passed "Crear Persona (CC: 999999999)"
+    else
+        test_failed "Crear Persona (CC: 999999999)"
+    fi
+    
+    increment_test
+    if echo "$OUTPUT" | grep -qi "999999999.*Juan\|Persona.*999999999"; then
+        test_passed "Buscar Persona por Cédula"
+    else
+        test_failed "Buscar Persona por Cédula"
+    fi
+    
+    increment_test
+    if echo "$OUTPUT" | grep -qi "Persona actualizada exitosamente\|Juan Carlos"; then
+        test_passed "Editar Persona"
+    else
+        test_failed "Editar Persona"
+    fi
+    
+    increment_test
+    if echo "$OUTPUT" | grep -qi "Persona eliminada exitosamente"; then
+        test_passed "Eliminar Persona"
+    else
+        test_failed "Eliminar Persona"
+    fi
+    
+    # Tests de Profesión
     increment_test
     if echo "$OUTPUT" | grep -qi "Profesión creada exitosamente\|Ingeniero de Sistemas"; then
         test_passed "Crear Profesión (ID: 10)"
@@ -152,7 +181,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Crear Profesión (ID: 10)"
     fi
     
-    # Test 2: Buscar Profesión por ID
+    # Test 5: Buscar Profesión por ID
     increment_test
     if echo "$OUTPUT" | grep -qi "Profesión.*10\|Ingeniero.*10"; then
         test_passed "Buscar Profesión por ID"
@@ -160,7 +189,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Buscar Profesión por ID"
     fi
     
-    # Test 3: Eliminar Profesión
+    # Test 6: Eliminar Profesión
     increment_test
     if echo "$OUTPUT" | grep -qi "Profesión eliminada exitosamente"; then
         test_passed "Eliminar Profesión"
@@ -168,7 +197,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Eliminar Profesión"
     fi
     
-    # Test 4: Crear Teléfono
+    # Test 7: Crear Teléfono
     increment_test
     if echo "$OUTPUT" | grep -qi "Teléfono creado exitosamente\|3001234567.*Claro"; then
         test_passed "Crear Teléfono (3001234567)"
@@ -176,7 +205,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Crear Teléfono (3001234567)"
     fi
     
-    # Test 5: Buscar Teléfono por Número
+    # Test 8: Buscar Teléfono por Número
     increment_test
     if echo "$OUTPUT" | grep -qi "3001234567.*Claro\|Teléfono.*3001234567"; then
         test_passed "Buscar Teléfono por Número"
@@ -184,7 +213,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Buscar Teléfono por Número"
     fi
     
-    # Test 6: Editar Teléfono
+    # Test 9: Editar Teléfono
     increment_test
     if echo "$OUTPUT" | grep -qi "Teléfono actualizado exitosamente\|3001234567.*Movistar"; then
         test_passed "Editar Teléfono"
@@ -192,7 +221,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Editar Teléfono"
     fi
     
-    # Test 7: Eliminar Teléfono
+    # Test 10: Eliminar Teléfono
     increment_test
     if echo "$OUTPUT" | grep -qi "Teléfono eliminado exitosamente"; then
         test_passed "Eliminar Teléfono"
@@ -200,7 +229,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Eliminar Teléfono"
     fi
     
-    # Test 8: Crear Estudio
+    # Test 11: Crear Estudio
     increment_test
     if echo "$OUTPUT" | grep -qi "Estudio creado exitosamente\|Pontificia Universidad Javeriana"; then
         test_passed "Crear Estudio (Persona: 123456789, Profesión: 1)"
@@ -208,7 +237,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Crear Estudio (Persona: 123456789, Profesión: 1)"
     fi
     
-    # Test 9: Buscar Estudio por ID
+    # Test 12: Buscar Estudio por ID
     increment_test
     if echo "$OUTPUT" | grep -qi "123456789.*1\|Estudio.*123456789"; then
         test_passed "Buscar Estudio por ID"
@@ -216,7 +245,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Buscar Estudio por ID"
     fi
     
-    # Test 10: Buscar Estudios por Persona
+    # Test 13: Buscar Estudios por Persona
     increment_test
     if echo "$OUTPUT" | grep -qi "123456789"; then
         test_passed "Buscar Estudios por Persona"
@@ -224,7 +253,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Buscar Estudios por Persona"
     fi
     
-    # Test 11: Buscar Estudios por Profesión
+    # Test 14: Buscar Estudios por Profesión
     increment_test
     if echo "$OUTPUT" | grep -qi "Profesión.*1\|estudios.*profesión"; then
         test_passed "Buscar Estudios por Profesión"
@@ -232,7 +261,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Buscar Estudios por Profesión"
     fi
     
-    # Test 12: Editar Estudio
+    # Test 15: Editar Estudio
     increment_test
     if echo "$OUTPUT" | grep -qi "Estudio actualizado exitosamente\|Universidad Nacional"; then
         test_passed "Editar Estudio"
@@ -240,7 +269,7 @@ if timeout $TIMEOUT docker compose run --rm personapp-cli-service < "$INPUT_FILE
         test_failed "Editar Estudio"
     fi
     
-    # Test 13: Eliminar Estudio
+    # Test 16: Eliminar Estudio
     increment_test
     if echo "$OUTPUT" | grep -qi "Estudio eliminado exitosamente"; then
         test_passed "Eliminar Estudio"

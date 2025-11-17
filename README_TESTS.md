@@ -17,6 +17,12 @@ Se ha creado un script que automáticamente:
 
 ## Tests que se Ejecutan
 
+### Personas (4 tests)
+1. ✅ Crear Persona (CC: 999999999, Nombre: Juan, Apellido: Pérez, Género: MALE, Edad: 25)
+2. ✅ Buscar Persona por Cédula
+3. ✅ Editar Persona (Cambiar nombre a Juan Carlos y edad a 26)
+4. ✅ Eliminar Persona
+
 ### Profesiones (3 tests)
 1. ✅ Crear Profesión (ID: 10, Nombre: "Ingeniero de Sistemas")
 2. ✅ Buscar Profesión por ID
@@ -36,7 +42,7 @@ Se ha creado un script que automáticamente:
 5. ✅ Editar Estudio (Cambiar universidad a Nacional)
 6. ✅ Eliminar Estudio
 
-**Total: 13 tests automatizados**
+**Total: 17 tests automatizados**
 
 ## Requisitos
 
