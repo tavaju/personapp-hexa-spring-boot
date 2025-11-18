@@ -7,7 +7,6 @@ import co.edu.javeriana.as.personapp.domain.Person;
 import co.edu.javeriana.as.personapp.domain.Phone;
 import co.edu.javeriana.as.personapp.mariadb.entity.PersonaEntity;
 import co.edu.javeriana.as.personapp.mariadb.entity.TelefonoEntity;
-import lombok.NonNull;
 
 @Mapper
 public class TelefonoMapperMaria {
@@ -19,11 +18,18 @@ public class TelefonoMapperMaria {
 		TelefonoEntity telefonoEntity = new TelefonoEntity();
 		telefonoEntity.setNum(phone.getNumber());
 		telefonoEntity.setOper(phone.getCompany());
-		telefonoEntity.setDuenio(validateDuenio(phone.getOwner()));
+		telefonoEntity.setDuenio(mapOwnerWithoutPhones(phone.getOwner()));
 		return telefonoEntity;
 	}
 
-	private PersonaEntity validateDuenio(@NonNull Person owner) {
+	public TelefonoEntity fromDomainToAdapterWithoutOwner(Phone phone) {
+		TelefonoEntity telefonoEntity = new TelefonoEntity();
+		telefonoEntity.setNum(phone.getNumber());
+		telefonoEntity.setOper(phone.getCompany());
+		return telefonoEntity;
+	}
+
+	private PersonaEntity mapOwnerWithoutPhones(Person owner) {
 		return owner != null ? personaMapperMaria.fromDomainToAdapter(owner) : new PersonaEntity();
 	}
 
@@ -31,11 +37,15 @@ public class TelefonoMapperMaria {
 		Phone phone = new Phone();
 		phone.setNumber(telefonoEntity.getNum());
 		phone.setCompany(telefonoEntity.getOper());
-		phone.setOwner(validateOwner(telefonoEntity.getDuenio()));
+		Person owner = personaMapperMaria.fromAdapterToDomain(telefonoEntity.getDuenio());
+		phone.setOwner(owner);
 		return phone;
 	}
 
-	private @NonNull Person validateOwner(PersonaEntity duenio) {
-		return duenio != null ? personaMapperMaria.fromAdapterToDomain(duenio) : new Person();
+	public Phone fromAdapterToDomainWithoutOwner(TelefonoEntity telefonoEntity) {
+		Phone phone = new Phone();
+		phone.setNumber(telefonoEntity.getNum());
+		phone.setCompany(telefonoEntity.getOper());
+		return phone;
 	}
 }

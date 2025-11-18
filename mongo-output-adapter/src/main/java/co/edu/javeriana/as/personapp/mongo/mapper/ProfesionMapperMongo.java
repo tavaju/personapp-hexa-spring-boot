@@ -14,7 +14,7 @@ import co.edu.javeriana.as.personapp.mongo.document.ProfesionDocument;
 
 @Mapper
 public class ProfesionMapperMongo {
-	
+
 	@Autowired
 	private EstudiosMapperMongo estudiosMapperMongo;
 
@@ -50,9 +50,18 @@ public class ProfesionMapperMongo {
 		return des != null ? des : "";
 	}
 
+	public Profession fromAdapterToDomainBasic(ProfesionDocument profesionDocument) {
+		Profession profession = new Profession();
+		profession.setIdentification(profesionDocument.getId() != null ? profesionDocument.getId() : 0);
+		profession.setName(profesionDocument.getNom() != null ? profesionDocument.getNom() : "Desconocido");
+		profession.setDescription(profesionDocument.getDes() != null ? profesionDocument.getDes() : "");
+		// No cargar 'studies' para evitar referencias cíclicas
+		return profession;
+	}
+
 	private List<Study> validateStudies(List<EstudiosDocument> estudiosDocument) {
 		return estudiosDocument != null && !estudiosDocument.isEmpty() ? estudiosDocument.stream()
-				.map(estudio -> estudiosMapperMongo.fromAdapterToDomain(estudio)).collect(Collectors.toList())
+				.map(estudio -> estudiosMapperMongo.fromAdapterToDomainBasic(estudio)).collect(Collectors.toList())
 				: new ArrayList<Study>();
 	}
 }
